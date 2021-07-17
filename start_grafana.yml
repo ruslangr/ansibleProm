@@ -1,0 +1,17 @@
+---
+- name: "Start and configure Grafana"
+  hosts: grafana
+  become: yes
+  tasks:
+    - name: Pull Grafana
+      docker_image:
+        name: grafana/grafana
+
+    - name: Start Grafana in Docker
+      docker_container:
+        name: GrafanaSrv
+        image: grafana/grafana
+        state: started
+        ports:
+        - "3000:3000"
+        restart_policy: always

@@ -22,4 +22,5 @@
         - "9090:9090"
         volumes:
         - /home/ec2-user/prometheus.yml:/etc/prometheus/prometheus.yml
+        restart_policy: always
       
