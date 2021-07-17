@@ -37,3 +37,14 @@
     - name: Install docker-py
       pip:
         name: docker-py
+
+    - name: Configure Docker to collect metrics with Prometheus
+      copy: src=./daemon.json dest=/etc/docker/daemon.json
+      notify: Restart docker
+
+    
+  handlers:
+    - name: Restart docker
+      service:
+        name: docker 
+        state: restarted
