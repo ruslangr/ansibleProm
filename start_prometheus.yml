@@ -1,0 +1,25 @@
+---
+- name: "Start and configure Prometheus"
+  hosts: prometheus
+  become: yes
+  vars:
+    source_file: ./prometheus.yml
+    dest_file: /home/ec2-user/prometheus.yml
+  tasks:
+    - name: Copy config file
+      copy: src={{ source_file }} dest={{ dest_file }}
+
+    - name: Pull Prometheus
+      docker_image:
+        name: prom/prometheus
+
+    - name: Start Prometheus in Docker
+      docker_container:
+        name: PrometheusSrv
+        image: prom/prometheus
+        state: started
+        ports:
+        - "9090:9090"
+        volumes:
+        - /home/ec2-user/prometheus.yml:/etc/prometheus/prometheus.yml
+      

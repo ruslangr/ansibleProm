@@ -16,7 +16,7 @@ variable "instance_ami" {
 }
 variable "instance_type" {
   description = "type for aws EC2 instance"
-  default = "t2.medium"
+  default = "t2.micro"
 }
 variable "environment_tag" {
   description = "Environment tag"
@@ -79,6 +79,24 @@ resource "aws_security_group" "sg_22" {
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+      from_port   = 3000
+      to_port     = 3000
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+      from_port   = 9090
+      to_port     = 9090
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+      from_port   = 9100
+      to_port     = 9100
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
  egress {
     from_port   = 0
     to_port     = 0
@@ -90,7 +108,7 @@ resource "aws_security_group" "sg_22" {
   }
 }
 
-resource "aws_instance" "testInstance" {
+resource "aws_instance" "Prometheus" {
   ami           = "${var.instance_ami}"
   instance_type = "${var.instance_type}"
   subnet_id = "${aws_subnet.subnet_public.id}"
@@ -98,6 +116,31 @@ resource "aws_instance" "testInstance" {
   key_name = "adm2_oregon"
  tags =  {
   Environment = "${var.environment_tag}"
+  Name = "prometheus"
+ }
+}
+
+resource "aws_instance" "Alertmanager" {
+  ami           = "${var.instance_ami}"
+  instance_type = "${var.instance_type}"
+  subnet_id = "${aws_subnet.subnet_public.id}"
+  vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
+  key_name = "adm2_oregon"
+ tags =  {
+  Environment = "${var.environment_tag}"
+  Name = "alertmanager"
+ }
+}
+
+resource "aws_instance" "Grafana" {
+  ami           = "${var.instance_ami}"
+  instance_type = "${var.instance_type}"
+  subnet_id = "${aws_subnet.subnet_public.id}"
+  vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
+  key_name = "adm2_oregon"
+ tags =  {
+  Environment = "${var.environment_tag}"
+  Name = "grafana"
  }
 }
 

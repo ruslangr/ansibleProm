@@ -1,0 +1,17 @@
+---
+- name: "Download and start node exporters"
+  hosts: all
+  become: yes
+  vars:
+
+  tasks:     
+    - name: Untar exporters
+      unarchive: 
+        src: https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
+        dest: /home/ec2-user
+        remote_src: yes
+    
+    - name: Run exporters
+      shell: /home/ec2-user/node_exporter-1.1.2.linux-amd64/node_exporter
+      async: 2592000             
+      poll: 0
