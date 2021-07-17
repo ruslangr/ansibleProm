@@ -89,19 +89,25 @@ resource "aws_security_group" "sg_22" {
       from_port   = 9090
       to_port     = 9090
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
   }
   ingress {
       from_port   = 9100
       to_port     = 9100
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
   }
    ingress {
       from_port   = 9323
       to_port     = 9323
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
+  }
+  ingress {
+      from_port   = 9093
+      to_port     = 9093
+      protocol    = "tcp"
+      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
   }
  egress {
     from_port   = 0

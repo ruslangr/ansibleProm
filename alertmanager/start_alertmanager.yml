@@ -1,0 +1,17 @@
+---
+- name: "Start and configure Alertmanager"
+  hosts: alertmanager
+  become: yes
+  tasks:
+    - name: Pull Alertmanager
+      docker_image:
+        name: bitnami/alertmanager
+
+    - name: Start Grafana in Docker
+      docker_container:
+        name: AlertmanagerSrv
+        image: bitnami/alertmanager
+        state: started
+        ports:
+        - "9093:9093"
+        restart_policy: always
