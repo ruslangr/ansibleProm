@@ -8,8 +8,6 @@
   tasks:
     - name: Copy config file
       copy: src={{ source_file }} dest={{ dest_file }}
-    - name: Copy web.yml
-      copy: src=./web.yml dest=/home/ec2-user/web.yml
     - name: Pull Prometheus
       docker_image:
         name: prom/prometheus
@@ -23,4 +21,3 @@
         - "9090:9090"
         volumes:
         - /home/ec2-user/prometheus.yml:/etc/prometheus/prometheus.yml
-#        command: --web.config.file=/home/ec2-user/web.yml

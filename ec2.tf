@@ -8,11 +8,11 @@ variable "cidr_subnet" {
 }
 variable "availability_zone" {
   description = "availability zone to create subnet"
-  default = "us-west-2a"
+  default = "us-east-2a"
 }
 variable "instance_ami" {
   description = "AMI for aws EC2 instance"
-  default = "ami-0dc8f589abe99f538"
+  default = "ami-0233c2d874b811deb"
 }
 variable "instance_type" {
   description = "type for aws EC2 instance"
@@ -25,7 +25,7 @@ variable "environment_tag" {
 
 provider "aws" {
   profile	= "default"
-  region	= "us-west-2"
+  region	= "us-east-2"
 }
 
 resource "aws_vpc" "vpc" {
@@ -89,25 +89,25 @@ resource "aws_security_group" "sg_22" {
       from_port   = 9090
       to_port     = 9090
       protocol    = "tcp"
-      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
+      cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
       from_port   = 9100
       to_port     = 9100
       protocol    = "tcp"
-      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
+      cidr_blocks = ["0.0.0.0/0"]
   }
    ingress {
       from_port   = 9323
       to_port     = 9323
       protocol    = "tcp"
-      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
+      cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
       from_port   = 9093
       to_port     = 9093
       protocol    = "tcp"
-      cidr_blocks = ["54.191.49.198/32", "54.184.68.118/32", "52.27.43.169/32"]
+      cidr_blocks = ["0.0.0.0/0"]
   }
  egress {
     from_port   = 0
@@ -125,7 +125,7 @@ resource "aws_instance" "Prometheus" {
   instance_type = "${var.instance_type}"
   subnet_id = "${aws_subnet.subnet_public.id}"
   vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
-  key_name = "adm2_oregon"
+  key_name = "adm3_ohio"
  tags =  {
   Environment = "${var.environment_tag}"
   Name = "prometheus"
@@ -137,7 +137,7 @@ resource "aws_instance" "Alertmanager" {
   instance_type = "${var.instance_type}"
   subnet_id = "${aws_subnet.subnet_public.id}"
   vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
-  key_name = "adm2_oregon"
+  key_name = "adm3_ohio"
  tags =  {
   Environment = "${var.environment_tag}"
   Name = "alertmanager"
@@ -149,7 +149,7 @@ resource "aws_instance" "Grafana" {
   instance_type = "${var.instance_type}"
   subnet_id = "${aws_subnet.subnet_public.id}"
   vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
-  key_name = "adm2_oregon"
+  key_name = "adm3_ohio"
  tags =  {
   Environment = "${var.environment_tag}"
   Name = "grafana"

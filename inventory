@@ -1,6 +1,6 @@
 [prometheus]
-prometheus ansible_host=52.27.43.169 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm2_oregon.pem
+prometheus ansible_host=18.218.249.72 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm3_ohio.pem
 [alertmanager]
-alertmanager ansible_host=54.184.68.118 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm2_oregon.pem
+alertmanager ansible_host=18.189.157.27 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm3_ohio.pem
 [grafana]
-grafana ansible_host=54.191.49.198 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm2_oregon.pem
+grafana ansible_host=3.137.200.38 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ruslan/adm3_ohio.pem
